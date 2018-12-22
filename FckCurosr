@@ -1,0 +1,169 @@
+#include <iostream>
+#include <stdlib.h>
+#include <time.h>
+#include <Windows.h>
+#include <cwchar>
+#include <conio.h>
+
+using namespace std;
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+int mapSize = 22;
+
+class UI_Database
+{
+public:
+int cursorPositionX; 
+int cursorPositionY;
+
+int MoveCursor(int x, int y)
+{
+	/*if(cursorPositionX == 1 && x == -1 || cursorPositionX == mapSize -2 && x == 1 || cursorPositionY == 1 && y == -1 || cursorPositionY == mapSize -2 && y ==1)
+	{
+		
+	}
+	else
+	{ */
+		
+		cursorPositionX += x;
+		cursorPositionY += y;
+	//}
+
+}
+
+	
+};
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+class Map_Database
+{
+	
+private:
+
+public:
+int map[22][22][20];
+
+
+int Map_Generator()
+{
+
+for (int x = 0; x < mapSize; x++)
+{
+	for(int y = 0; y < mapSize; y++)
+	{
+		if(x == 0 || y == 0 || x == mapSize -1 || y == mapSize -1)
+		{
+		map[x][y][0] = 0;
+		}
+		else
+		{
+		map[x][y][0] = 1;
+		}
+		cout << map[x][y][0];
+	}
+	cout << endl;
+
+}
+UIDisplay();
+}
+
+int UIDisplay()
+{
+UI_Database uidb;
+
+system("cls");
+for (int x = 0; x < mapSize; x++)
+{
+	for(int y = 0; y < mapSize; y++)
+	{
+		if(uidb.cursorPositionX != x && uidb.cursorPositionY != y)
+		{	
+		switch(map[x][y][0])
+		{
+			case 0:
+			if(x == 0 && y == 0)
+			{
+				cout << static_cast < char >( 0xDA ) ;
+			}
+			else if(x == 0 && y == mapSize - 1)
+			{
+				cout << static_cast < char >( 0xBF ) ;
+			}
+			else if(x == mapSize -1 && y == 0)
+			{	
+				cout << static_cast < char >( 0xC0 ) ;
+			}
+			else if(x == mapSize -1 && y == mapSize -1)
+			{	
+				cout << static_cast < char >( 0xD9 ) ;
+			}
+			else if(x == 0 ||  x == mapSize - 1)
+			{
+				cout << static_cast < char >( 0xC4 ) ;
+			}
+			else if(y == 0 ||  y == mapSize - 1)
+			{
+				cout << static_cast < char >( 0xB3 ) ;
+			}
+			break;
+			case 1:
+				cout << " ";
+			break;
+			
+		}
+	}
+	else
+	{
+	cout << "+";	
+	}
+	}
+	cout<< endl;
+}
+cout << uidb.cursorPositionX  << " " << uidb.cursorPositionY;
+}
+
+};
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+int main()
+{
+Map_Database mapdb;
+UI_Database uidb;
+
+uidb.cursorPositionX = 1;
+uidb.cursorPositionY = 1;
+
+mapdb.Map_Generator();
+
+while (true)
+{
+	char buttonPressed;
+	buttonPressed = getch();
+	
+	switch(buttonPressed)
+	{
+	case 'w':
+	uidb.MoveCursor(1,0);
+	mapdb.UIDisplay();
+	break;
+		case 's':
+	uidb.MoveCursor(-1,0);
+	mapdb.UIDisplay();
+	break;
+		case 'a':
+	uidb.MoveCursor(0,-1);
+	mapdb.UIDisplay();
+	break;
+		case 'd':
+	uidb.MoveCursor(0,1);
+	mapdb.UIDisplay();
+	break;
+	}
+	
+}
+
+}
