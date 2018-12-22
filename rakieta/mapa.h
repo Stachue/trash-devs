@@ -6,11 +6,11 @@
 class Mapa
 {
     public:
+    char space=255;
     char mapa[30][50];
 
-    void generator();
-
-    void wyswietlenie();
-
-    void rakieta(int, int);
+    void generator(); //generuje mape
+    void wyswietlenie(int, int); //wyswietla mape
+    void rakieta(int, int, int); //sterowanie rakieta
+    void cleaner(int, int, int); //usuwa pozostalosci po rakiecie
 };
