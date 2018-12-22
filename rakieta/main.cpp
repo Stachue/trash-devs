@@ -5,17 +5,16 @@
 #include "mapa.h"
 using namespace std;
 
-char space=255;
-
 void color(int nr);
 
 int main()
 {
-    int r1=25, r2=25; //rakieta
+    int r1=25, r2=25; //kordy rakiety
+    int p=1; //pozycja 1-gora 2-prawo 3-dol 4-lewo
     Mapa m1;
     m1.generator();
-    m1.rakieta(r1, r2);
-    m1.wyswietlenie();
+    m1.rakieta(r1, r2, p);
+    m1.wyswietlenie(r1, r2);
 
     while(true)
     {
@@ -25,15 +24,43 @@ int main()
         switch(wybor)
         {
             case 'w':
-            {
-                r1--;
-                m1.mapa[r1+2][r2] = space;
-                m1.mapa[r1+2][r2+1] = space;
-                m1.mapa[r1+2][r2-1] = space;
-                m1.rakieta(r1, r2);
-                m1.wyswietlenie();
+                {
+                    if(r1<=2){r1++;}
+                    p=1;
+                    r1--;
+                    m1.cleaner(r1, r2, p);
+                    m1.rakieta(r1, r2, p);
+                    m1.wyswietlenie(r1, r2);
 
-            }break;
+                }break;
+            case 's':
+                {
+                    if(r1>=27){r1--;}
+                    p=3;
+                    r1++;
+                    m1.cleaner(r1, r2, p);
+                    m1.rakieta(r1, r2, p);
+                    m1.wyswietlenie(r1, r2);
+
+                }break;
+            case 'a':
+                {
+                    if(r2<=1){r2++;}
+                    p=4;
+                    r2--;
+                    m1.cleaner(r1, r2, p);
+                    m1.rakieta(r1, r2, p);
+                    m1.wyswietlenie(r1, r2);
+                }break;
+            case 'd':
+                {
+                    if(r2>=48){r2--;}
+                    p=2;
+                    r2++;
+                    m1.cleaner(r1, r2, p);
+                    m1.rakieta(r1, r2, p);
+                    m1.wyswietlenie(r1, r2);
+                }break;
         }
     }
     return 0;
